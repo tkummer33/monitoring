@@ -8,7 +8,7 @@
     - 'never'
     - 'install'
 
-- name: Setup bind exporters
+- name: Setup haproxy exporters
   hosts: prometheus_target_haproxy
   become: True
   vars:
