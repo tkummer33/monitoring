@@ -1,0 +1,8 @@
+---
+- name: Setup hpilo exporter
+  hosts: prometheus_scraper
+  become: True
+  vars:
+    provision_state: "started"
+  roles:
+    - ../../prometheus/generic/setup-hpilo-exporter

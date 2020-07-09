@@ -1,0 +1,10 @@
+---
+- name: Run the hpilo_exporter
+  docker_container:
+    name: hpilo_exporter
+    image: "{{ hpilo_exporter_image }}:{{ hpilo_exporter_image_version }}"
+    pid_mode: "host"
+    network_mode: "host"
+    state: "{{ provision_state }}"
+    published_ports:
+    - "{{ hpilo_exporter_port }}:9416"

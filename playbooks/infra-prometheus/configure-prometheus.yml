@@ -1,0 +1,10 @@
+---
+- name: configure prometheus
+  hosts: prometheus_scraper
+  become: True
+  vars:
+    provision_state: "started"
+  roles:
+    - ../../prometheus/generic/setup-prometheus
+  tags:
+    - 'always'

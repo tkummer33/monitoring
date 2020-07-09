@@ -1,0 +1,6 @@
+---
+hpilo_exporter_image: 'idnt/hpilo-exporter'
+hpilo_exporter_image_version: 'latest'
+hpilo_exporter_port: '9416'
+
+provision_state: "started"
