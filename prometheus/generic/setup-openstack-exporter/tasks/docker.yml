@@ -1,0 +1,18 @@
+---
+- name: copy clouds.yml
+  copy:
+    src: "{{ clouds_yaml_file }}"
+    dest: clouds.yaml
+
+- name: Run the openstack_exporter
+  docker_container:
+    name: openstack_exporter
+    image: "{{ openstack_exporter_image }}:{{ openstack_exporter_image_version }}"
+    pid_mode: "host"
+    network_mode: "host"
+    state: "{{ provision_state }}"
+    published_ports:
+    - "{{ openstack_exporter_port }}:9180"
+    command: "{{ openstack_cloud_name }}"
+    volumes:
+    - /home/centos/clouds.yaml:/etc/openstack/clouds.yaml:Z
