@@ -4,10 +4,10 @@
     src: "{{ clouds_yaml_file }}"
     dest: clouds.yaml
 
-- name: openstack openstack ca cert
-  copy:
-    src: "{{ os_cacert_file }}"
-    dest: os_ca.crt
+    #- name: openstack openstack ca cert
+    #  copy:
+    #    src: "{{ os_cacert_file }}"
+    #    dest: os_ca.crt
  
 
 - name: Run the openstack_exporter
@@ -22,4 +22,4 @@
     command: "{{ openstack_cloud_name }}"
     volumes:
     - /home/centos/clouds.yaml:/etc/openstack/clouds.yaml:Z
-    - /home/centos/os_ca.crt:/etc/openstack/os_ca.crt:Z
+      #    - /home/centos/os_ca.crt:/etc/openstack/os_ca.crt:Z
