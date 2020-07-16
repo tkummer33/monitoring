@@ -3,7 +3,7 @@
   template:
     src: prometheus.yml.j2
     dest: /home/centos/prometheus.yml
-    mode: 0755
+    mode: 0666
     owner: centos
     group: centos
 
@@ -11,18 +11,29 @@
   copy:
     src: first_rules.yml
     dest: /home/centos/first_rules.yml
-    mode: 0755
+    mode: 0666
     owner: centos
     group: centos
+
+- name: copy custom rules file if defined
+  copy:
+    src: "{{ custom_rules_file }}"
+    dest: /home/centos/custom_rules.yml
+    mode: 0666
+    owner: centos
+    group: centos
+  when: (custom_rules_file is defined) and (custom_rules_file | length > 0)
 
 - name: Run Prometheus Docker container
   docker_container:
     name: prometheus
     image: "{{ prometheus_image }}:{{ prometheus_image_version }}"
+    network_mode: host
     published_ports:
     - "{{ prometheus_port }}:9090"
     volumes:
     - /home/centos/prometheus.yml:/etc/prometheus/prometheus.yml:Z
     - /home/centos/first_rules.yml:/etc/prometheus/first_rules.yml:Z
+    - /home/centos/custom_rules.yml:/etc/prometheus/custom_rules.yml:Z
     state: "{{ provision_state }}"
     restart: yes
