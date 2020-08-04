@@ -1,8 +1,8 @@
 ---
-- name: copy clouds.yml
-  copy:
-    src: "{{ clouds_yaml_file }}"
-    dest: clouds.yaml
+- name: template clouds.yaml
+  template:
+    src: clouds.yaml.j2
+    dest: "/home/{{ ansible_user }}/clouds.yaml"
 
 
 - name: Run the openstack_exporter
