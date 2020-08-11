@@ -1,6 +1,6 @@
 ---
 - name: Setup openstack exporter
-  hosts: prometheus_scraper
+  hosts: monitoring-hosts
   become: True
   vars:
     provision_state: "started"

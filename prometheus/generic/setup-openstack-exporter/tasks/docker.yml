@@ -16,4 +16,4 @@
     - "{{ openstack_exporter_port }}:9180"
     command: "{{ openstack_cloud_name }}"
     volumes:
-    - /home/centos/clouds.yaml:/etc/openstack/clouds.yaml:Z
+    - "/home/{{ ansible_user }}/clouds.yaml:/etc/openstack/clouds.yaml:Z"
