@@ -2,18 +2,20 @@
 - name: template clouds.yaml
   template:
     src: clouds.yaml.j2
-    dest: "/home/{{ ansible_user }}/clouds.yaml"
+    dest: "/home/{{ ansible_user }}/clouds-{{ item }}.yaml"
+  loop: "{{ groups['openstack_env'] }}"
 
 
 - name: Run the openstack_exporter
   docker_container:
-    name: openstack_exporter
+    name: "openstack_exporter-{{ item }}"
     image: "{{ openstack_exporter_image }}:{{ openstack_exporter_image_version }}"
     pid_mode: "host"
     network_mode: "host"
     state: "{{ provision_state }}"
-    published_ports:
-    - "{{ openstack_exporter_port }}:9180"
-    command: "{{ openstack_cloud_name }}"
+    command: "--web.listen-address=:{{ hostvars[item].openstack_exporter_port }} {{ openstack_cloud_name }}"
     volumes:
-    - "/home/{{ ansible_user }}/clouds.yaml:/etc/openstack/clouds.yaml:Z"
+    - "/home/{{ ansible_user }}/clouds-{{ item }}.yaml:/etc/openstack/clouds.yaml:Z"
+    restart: yes
+    exposed_ports: 9181:9181
+  loop: "{{ groups['openstack_env'] }}"

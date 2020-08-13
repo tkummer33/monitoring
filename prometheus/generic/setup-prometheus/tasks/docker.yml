@@ -1,13 +1,4 @@
 ---
-- name: check openstack_exporter container
-  shell: docker ps |grep openstack_exporter
-  register: osp_exporter
-
-- name: debug osp_exporter
-  debug:
-    var: osp_exporter
-
-
 - name: Run the prometheus.yml template
   template:
     src: prometheus.yml.j2

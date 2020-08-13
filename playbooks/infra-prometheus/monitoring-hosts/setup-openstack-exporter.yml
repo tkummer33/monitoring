@@ -5,4 +5,4 @@
   vars:
     provision_state: "started"
   roles:
-    - ../../prometheus/generic/setup-openstack-exporter
+    - ../../../prometheus/generic/setup-openstack-exporter
