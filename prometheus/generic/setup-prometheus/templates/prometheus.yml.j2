@@ -96,7 +96,8 @@ scrape_configs:
 {% for host in groups['openstack_env'] %}
   - job_name: 'openstack'
     metrics_path: /metrics
-    scrape_interval: 5s
+    scrape_timeout: 20s
+    scrape_interval: 60s
     file_sd_configs:
       - files:
         - /etc/prometheus/targets/openstack_targets/*.yml
