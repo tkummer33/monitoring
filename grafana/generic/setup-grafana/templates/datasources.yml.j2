@@ -6,7 +6,7 @@ datasources:
   type: prometheus
   access: proxy
   orgId: 1
-  url: "http://{{ ansible_host }}:{{ prometheus_port }}"
+  url: "http://127.0.0.1:{{ prometheus_port }}"
   jsonData:
     tlsSkipVerify: true
   editable: true

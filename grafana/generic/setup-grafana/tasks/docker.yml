@@ -1,4 +1,10 @@
 ---
+- name: create dashboards dir
+  file:
+    path: "/home/{{ ansible_user }}/dashboards/"
+    state: directory
+    mode: 0755
+
 
 - name: copy dashboards
   copy:
@@ -34,4 +40,5 @@
     env:
       GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_password }}"
     state: "{{ provision_state }}"
+    network_mode: host
     restart: yes
