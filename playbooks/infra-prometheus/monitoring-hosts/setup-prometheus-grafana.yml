@@ -1,6 +1,6 @@
 ---
 - name: Install Docker
-  hosts: app_prom_auth_test
+  hosts: monitoring-hosts
   become: True
   roles:
     - infra-ansible/roles/config-docker
@@ -9,7 +9,7 @@
     - 'install'
 
 - name: Setup prometheus and alertmanager
-  hosts: app_prom_auth_test
+  hosts: monitoring-hosts
   become: True
   vars:
     provision_state: "started"
